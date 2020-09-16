@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+// This API use for Get Product variant and Comsume in shopify end   
 Route::Post('/productdata', 'ProductController\ProductController@getProductVariant')->name('productdata');
-Route::get('/getproductcategory','ProductController\ProductCategory@getProductCategory')->name('productdata');
+
+// This API use for Get Product Image and Comsume in shopify end 
 Route::get('/getimage','ProductController\ProductController@getImage')->name('getimage');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

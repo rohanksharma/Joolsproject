@@ -9,7 +9,7 @@ use App\Http\Controllers\BaseController as BaseController;
 
 class ProductCategory extends BaseController
 {
-    //
+    // fetch projectcategory data from database
     public function getProductCategory(Request $request){
       $productCategory = Category::where('subcategory_id',0)->get();
       if($productCategory!=null){
@@ -20,7 +20,7 @@ class ProductCategory extends BaseController
       }
     }
 
-
+       // fetch Sub category data from database
     public function getProductSubCategory(Request $request){
       $productCategory = Category::where('category', $request->category)->get();
       if($productCategory!=null){
