@@ -1,0 +1,173 @@
+ <div class="row">  
+             
+     <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+      </ngx-spinner>
+            <!-- Form Elements -->
+            <div class="col-lg-12 mb-5">
+             <div class="card">
+                <div class="card-header" id ="contentToConvert" >
+                  <h3 class="h6 text-uppercase mb-0">Add Stone</h3>
+               </div>
+               <div class="card-body" >
+                 <form>
+                   <div class="row">
+                     <div class="col-md-3 form-group">       
+                       <label class="form-control-label text-uppercase">Stone Name</label>
+                        <input name="centerstonename" [(ngModel)]="centerstonename" disabled value="Center Stone" id="center_stone_name" class="form-control">
+                         <!-- <option value="CS">Center Stone</option>
+                         <option value="AS1">Accent Stone 1</option>
+                         <option value="AS2">Accent Stone 2</option> -->  
+                     </div>
+                     <div class="col-md-3 form-group">
+                       <label class="form-control-label text-uppercase">Select Stone Type</label>
+                        <select name="centerstonetype" id="center_stone_type" (change)="onchange('center_stone',$event);" [(ngModel)]="centerstonetype" class="form-control">
+                         <option *ngFor="let item of stoneType let i=index" value="{{item.stone_code}}">{{item.stone_type}}</option>
+                       </select> 
+                     </div>
+
+                     <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Select Quality</label>
+                      <!-- <select name="metal" id="metal_id_{{i}}" [(ngModel)]="items.metal" class="form-control">
+                        <option value="AU">Gold</option>
+                        <option value="AG">Silver</option>
+                        <option value="PT">Platinum</option>
+                      </select> -->
+                      <ng-multiselect-dropdown
+                          [placeholder]="'Select Quality'"
+                          name="centerstonequality"
+                          [settings]="dropdownSettings"
+                          [data]="centerstonequalityList"
+                          [(ngModel)]="centerstonequalitymodel"
+                          (onSelect)="onCenterStoneQuality($event)"
+                          (onDeSelect)="onItemDeSelectCenterStoneQuality($event)"
+                          (onSelectAll)="onSelectAll($event)" >
+                        </ng-multiselect-dropdown>
+                    </div>
+                   
+                     <div class="col-md-3 form-group">
+                       <label class="form-control-label text-uppercase">Stone Shap</label>
+                       <select name="centerstoneshapecode" id="center_stone_shape_code" [(ngModel)]="centerstoneshapecode" class="form-control">
+                         <option *ngFor="let item of centerstoneShapList let i=index" value="{{item.shape_code}}">{{item.shape}}</option>
+                       </select>
+                     </div>
+                   
+                     <div class="col-md-3 form-group">
+                        <label class="form-control-label text-uppercase">Stone total wt</label>
+                        <input type="text" name="centerstonetotalwt" [(ngModel)]="centerstonetotalwt" id="center_stone_total_wt" placeholder="material wt" class="form-control">
+                     </div>
+
+                     <div class="col-md-3 form-group">
+                       <label class="form-control-label text-uppercase">Stone Pieces</label>
+                       <input type="text" name="centerstonepieces" [(ngModel)]="centerstonepieces" id="center_stone_pieces" placeholder="stone pieces" class="form-control">
+                    </div> 
+                   </div>
+                  <div class="row">
+                    <div class="col-md-3 form-group">       
+                      <label class="form-control-label text-uppercase">Stone Name</label>
+                       <input name="accentstone1" [(ngModel)]="accentstone1name" disabled value="Accent Stone 1" id="center_stone_name" class="form-control">
+                        <!-- <option value="CS">Center Stone</option>
+                        <option value="AS1">Accent Stone 1</option>
+                        <option value="AS2">Accent Stone 2</option> -->  
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Select Stone Type</label>
+                       <select name="accentstonetype1" id="accent_stone1_type" (change)="onchange('accent_stone1',$event);" [(ngModel)]="accentstone1type" class="form-control">
+                        <option *ngFor="let item of stoneType let i=index" value="{{item.stone_code}}">{{item.stone_type}}</option>
+                      </select> 
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Select Quality </label>
+                      <!-- <select name="metal" id="metal_id_{{i}}" [(ngModel)]="items.metal" class="form-control">
+                        <option value="AU">Gold</option>
+                        <option value="AG">Silver</option>
+                        <option value="PT">Platinum</option>
+                      </select> -->
+                   <ng-multiselect-dropdown
+                      [placeholder]="'Selet Quality'"
+                      name="accentStone1QualitySetting"
+                      [settings]="dropdownSettings"
+                      [data]="accentstone1qualityList"
+                      [(ngModel)]="accentstone1qualitymodel"
+                      (onDeSelect)="onItemDeSelectAccentStone1($event)"
+                      (onSelect)="onAccentStone1Quality($event)"
+                      (onSelectAll)="onSelectAll($event)" >
+                    </ng-multiselect-dropdown>
+                    </div>
+                  
+                    <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Stone Shap</label>
+                      <select name="Accent Stone 1" id="center_stone_shape_code" [(ngModel)]="accentstone1shap" class="form-control">
+                        <option *ngFor="let item of accentstone1ShapList let i=index" value="{{item.shape_code}}">{{item.shape}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                       <label class="form-control-label text-uppercase">Stone Total wt</label>
+                       <input type="text" name="accentstonetotalwt" [(ngModel)]="accentstone1totalwt" id="accent_stone1_total_wt" placeholder="material wt" class="form-control">
+                    </div>
+
+                    <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Stone Pieces</label>
+                      <input type="text" name="accentstone1pieces" [(ngModel)]="accentstone1pieces" id="accent_stone1_pieces" placeholder="stone pieces" class="form-control">
+                   </div>
+                  </div>
+                    
+                  <div class="row">
+                    <div class="col-md-3 form-group">       
+                      <label class="form-control-label text-uppercase">Stone Name</label>
+                       <input name="accentstone2" [(ngModel)]="accentstone2name" disabled value="Accent Stone 1" id="center_stone_name" class="form-control">
+                        <!-- <option value="CS">Center Stone</option>
+                        <option value="AS1">Accent Stone 1</option>
+                        <option value="AS2">Accent Stone 2</option> -->  
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Select Stone Type</label>
+                       <select name="accentstone2type" id="accent_stone1_type" (change)="onchange('accent_stone2',$event);" [(ngModel)]="accentstone2type" class="form-control">
+                        <option *ngFor="let item of stoneType let i=index" value="{{item.stone_code}}">{{item.stone_type}}</option>
+                      </select> 
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Select Quality</label>
+                      <!-- <select name="metal" id="metal_id_{{i}}" [(ngModel)]="items.metal" class="form-control">
+                        <option value="AU">Gold</option>
+                        <option value="AG">Silver</option>
+                        <option value="PT">Platinum</option>
+                      </select> -->
+                   <ng-multiselect-dropdown
+                      [placeholder]="'Select Quality'"
+                      name="accentstone2quality"
+                      [settings]="accentStone2QualitySetting"
+                      [data]="accentstone2qualityList"
+                      [(ngModel)]="accentstone2qualitymodel"
+                      (onSelect)="onAccentStone2Quality($event)"
+                      (onDeSelect)="onItemDeSelectAccentStone2($event)"
+                      (onSelectAll)="onSelectAll($event)" >
+                    </ng-multiselect-dropdown>
+                    </div>
+                  
+                    <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Stone Shap</label>
+                      <select name="accentstone2shap" id="center_stone_shape_code" [(ngModel)]="accentstone2shap" class="form-control">
+                        <option *ngFor="let item of   accentstone2ShapList let i=index" value="{{item.shape_code}}">{{item.shape}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                       <label class="form-control-label text-uppercase">Stone total wt</label>
+                       <input type="text" name="accentstone2totalwt" [(ngModel)]="accentstone2totalwt" id="accent_stone2_total_wt" placeholder="material wt" class="form-control">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label class="form-control-label text-uppercase">Stone Pieces</label>
+                      <input type="text" name="accentstone2pieces" [(ngModel)]="accentstone2pieces" id="accent_stone2_pieces" placeholder="stone pieces" class="form-control">
+                   </div>
+                  </div>
+                    <div class="form-group">       
+                      <button type="button" (click)="addStoneApi()" class="btn btn-primary">Add Stone</button>
+                   </div>
+                   <div class="form-group">       
+                     <button type="button" (click)="priceCalCulator()" class="btn btn-primary">Calculate Price</button>
+                  </div>
+                 </form>
+               </div>
+             </div>
+           </div>
+          </div>

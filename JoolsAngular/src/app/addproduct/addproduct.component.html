@@ -1,0 +1,304 @@
+<app-header></app-header>
+<div class="d-flex align-items-stretch">
+    <app-sidebar></app-sidebar>
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate" [fullScreen]="true">
+      <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+    <div class="container-fluid px-xl-5">
+        <section class="py-5">
+          <div class="row">
+              <!-- Form Elements -->
+              <div class="col-lg-12 mb-5">
+                <div class="card">
+                   <div class="card-header">
+                     <h3 class="h6 text-uppercase mb-0">Add Product</h3>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label class="form-control-label text-uppercase">Product Category</label>
+                          <select name="category"  id="Category_id" (change)="onChangeCategory($event)" [(ngModel)]="productdata['category']" class="form-control">
+                            <option *ngFor="let item of productCategory let i=index" value="{{item.category}}">{{item.category}}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 form-group">       
+                          <label class="form-control-label text-uppercase">Product Subcategory</label>
+                          <select name="subcategory"  id="Subcategory_id" [(ngModel)]="productdata['subcategory']" class="form-control">
+                            <option *ngFor="let item of productSubCategory let i=index" value="{{item.category}}">{{item.category}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label class="form-control-label text-uppercase">Select Designer</label>
+                          <select name="designer" id="designer_id" [(ngModel)]="productdata['designer']" class="form-control">
+                            <option *ngFor="let item of productDesigner let i=index" value="{{item.designer_id}}">{{item.designer_name}}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 form-group">  
+                          <label class="form-control-label text-uppercase">Product Id</label>
+                           <input type="text" placeholder="Shopify Product Id" name="shopifyproduct_id" id="shopifyproduct_id"  [(ngModel)]="productdata['shopifyproduct_id']" class="form-control">
+                            
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label class="form-control-label text-uppercase">Product Title</label>
+                          <input type="text" placeholder="Product Title" name="product_title" id="product_title_id"  [(ngModel)]="productdata['product_title']" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group">       
+                          <label class="form-control-label text-uppercase">Product Description</label>
+                          <input type="text" placeholder="Product Description" name="description" id="description_id"  [(ngModel)]="productdata['description']" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label class="form-control-label text-uppercase">Product Tags</label>
+                          <input type="text" placeholder="Product Tags" name="tags" id="tags_id"  [(ngModel)]="productdata['tags']" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group">       
+                          <label class="form-control-label text-uppercase">Product Dimension</label>
+                          <input type="text" placeholder="Product Dimension" name="dimension" id="dimension_id"  [(ngModel)]="productdata['dimension']" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-4 form-group">
+                          <label class="form-control-label text-uppercase">Length</label>
+                          <input type="text" placeholder="Length" name="length" id="length_id"  [(ngModel)]="productdata['length']" class="form-control">
+                        </div>
+                        <div class="col-md-4 form-group">       
+                          <label class="form-control-label text-uppercase">Width</label>
+                          <input type="text" placeholder="Width" name="width" id="width_id"  [(ngModel)]="productdata['width']" class="form-control">
+                        </div>
+                        <div class="col-md-4 form-group">       
+                          <label class="form-control-label text-uppercase">Height</label>
+                          <input type="text" name="height" id="height_id"  [(ngModel)]="productdata['height']" placeholder="Height" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group">       
+                        <button type="submit" class="btn btn-primary" (click)="addProductDetails()" >Save</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              
+               <!-- Form Elements -->
+               <div class="col-lg-12 mb-5">
+                <div class="card">
+                   <div class="card-header">
+                     <h3 class="h6 text-uppercase mb-0">Add Materials</h3>
+                  </div>
+                  <div class="card-body">
+                    <form>
+                      <div  class="row">
+                        <div class="col-md-3 form-group">
+                          <label class="form-control-label text-uppercase">Select Metal</label>
+                          <!-- <select name="metal" id="metal_id_{{i}}" [(ngModel)]="items.metal" class="form-control">
+                            <option value="AU">Gold</option>
+                            <option value="AG">Silver</option>
+                            <option value="PT">Platinum</option>
+                          </select> -->
+                      <ng-multiselect-dropdown
+                          [placeholder]="'Selet Metal'"
+                          name="metal"
+                          [settings]="metalListSettings"
+                          [data]="metalList"
+                          [(ngModel)]="metalListselectedItems"
+                          (onSelect)="onItemSelectMetal($event)"
+                          (onSelectAll)="onSelectAll($event)" >
+                        </ng-multiselect-dropdown>
+                        </div>
+                        <div class="col-md-3 form-group">       
+                          <label class="form-control-label text-uppercase">Metal Purity</label>
+                          <!-- <select name="metal_purity" [(ngModel)]="items.metal_purity" id="metal_purity_id_{{i}}" class="form-control">
+                            <option value="22">22k</option>
+                            <option value="18">18k</option>
+                            <option value="14">14k</option>
+                            <option value="9">9k</option>
+                            <option value="925">925</option>
+                            <option value="950">950</option>
+                          </select> -->
+
+                            <ng-multiselect-dropdown
+                              [placeholder]="'Selet Metal Purity'"
+                              name = "metal_purity"
+                              [settings]="dropdownSettings"
+                              [data]="metalpurityList"
+                              [(ngModel)]="selectedItems"
+                              (onSelect)="onItemSelectMetalPurity($event)"
+                              (onDeSelect)="onItemDeSelectMetalPurity($event)"
+                              (onSelectAll)="onSelectAll($event)"
+                            >
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="col-md-3 form-group">
+                          <label class="form-control-label text-uppercase">Purity wt</label>
+                          <select name="purity_wt" id="purity_wt_id" [(ngModel)]="purityWt" class="form-control">
+                            <option value="22">22k</option>
+                            <option value="18">18k</option>
+                            <option value="14">14k</option>
+                            <option value="9">9k</option>
+                          </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                           <label class="form-control-label text-uppercase">Metal wt</label>
+                           <input type="text" name="metalWt" [(ngModel)]="metalWt" id="metalWt_id" placeholder="Metal wt" class="form-control">
+                        </div>
+                       
+                        <!-- <div class="col-md-4 form-group">
+                          <label class="form-control-label text-uppercase">Metal Finish</label>
+                          <select name="account" class="form-control">
+                            <option>Yellow</option>
+                            <option>Rose</option>
+                            <option>White</option>
+                          </select>
+                        </div> -->
+                      </div>
+                      <p>Choose Metal Finish</p>
+                      <div class="row">
+                          <div class="col-md-3 form-group">
+                            <div class="custom-control custom-checkbox">
+                              <input id="yellow" type="checkbox" value="Yellow" [(ngModel)]="finishYellow" class="custom-control-input">
+                              <label for="yellow" class="custom-control-label">Yellow</label>
+                            </div>
+                          </div>
+                          <div  class="col-md-4 form-group">
+                            <input
+                                name = "yellowImage"
+                                [(ngModel)]="imagefile" 
+                                id="yellow_file" 
+                                type="file" 
+                                class="form-control"
+                                 multiple="" 
+                                (change)="onFileChangeYellow($event)">
+                          </div> 
+                          <div class="col-md-4 form-group ">   
+                            <button type="button" class="btn btn-primary float-right"  (click)="uploadYellowImage()" >Upload</button>
+                          </div>  
+                        </div>
+                       <div  class="row"> 
+                        <img *ngFor='let url of yellowimages'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+                       </div>
+
+                      <div class="row">
+                        <div class="col-md-3 form-group">
+                          <div class="custom-control custom-checkbox">
+                            <input id="rose" type="checkbox" [(ngModel)]="finishRose" value="Rose" class="custom-control-input">
+                            <label for="rose" class="custom-control-label">Rose</label>
+                          </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                         
+                          <input
+                               name="roseImage"
+                              [(ngModel)]="imagefile" 
+                              id="rose_file" 
+                              type="file" 
+                              class="form-control"
+                               multiple="" 
+                              (change)="onFileChangeRose($event)">
+                        </div> 
+                        <div class="col-md-4 form-group float-right">   
+                            <button type="button" class="btn btn-primary float-right"  (click)="uploadRoseImage()" >Upload</button>
+                        </div> 
+                   </div>
+
+                       <div  class="row"> 
+                        <img *ngFor='let url of roseImages'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+                       </div>
+                    
+
+
+
+                    <div class="row">
+                      <div class="col-md-3 form-group">
+                        <div class="custom-control custom-checkbox">
+                          <input id="White" type="checkbox" [(ngModel)]="finishWhite" value="White" class="custom-control-input">
+                          <label for="White" class="custom-control-label">White</label>
+                        </div>
+                      </div>
+                      <div class="col-md-4 form-group">
+                        
+                        <input
+                             name="whiteImage" 
+                            [(ngModel)]="imagefile" 
+                            id="White_file" 
+                            type="file" 
+                            class="form-control"
+                             multiple="" 
+                            (change)="onFileChangeWhite($event)">
+                      </div> 
+                      <div class="col-md-4 form-group">   
+                          <button type="button" class="btn btn-primary float-right"  (click)="uploadWhiteImage()" >Upload</button>
+                      </div> 
+                   
+                   </div>
+                   <div  class="row" >
+                    <img *ngFor='let url of whiteImages'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+                   </div>
+                        
+
+
+
+                  <div class="form-group row">
+                    <label class="col-md-3 form-control-label">Add &amp; Stone <br><small class="text-primary">You want to Add Stone</small></label>
+                    <div class="col-md-9">
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input id="addStoneFlag1" type="radio" [(ngModel)]="addStoneFlag" value="yes" name="addStoneFlag" class="custom-control-input">
+                        <label for="addStoneFlag1" class="custom-control-label">Yes</label>
+                      </div>
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input id="addStoneFlag2" type="radio"  [(ngModel)]="addStoneFlag"  value="no"  name="addStoneFlag" class="custom-control-input">
+                        <label for="addStoneFlag2" class="custom-control-label">No</label>
+                      </div>
+                    </div>
+                  </div>
+                      <!-- <div class="row">
+                        <div class="col-md-9">
+                          <div class="custom-control custom-checkbox">
+                            <input id="yellow" type="checkbox" class="custom-control-input">
+                            <label for="yellow" class="custom-control-label">Yellow</label>
+                          </div>
+                          <div class="custom-control custom-checkbox">
+                            <input id="rose" type="checkbox" class="custom-control-input">
+                            <label for="rose" class="custom-control-label">Rose</label>
+                          </div>
+                         
+                        </div>
+                      </div> -->
+
+
+                        <!-- <div class="col-md-4 form-group">
+                          <label for="file">File</label>
+                          <input
+                              [(ngModel)]="imagefile" 
+                              id="file" 
+                              type="file" 
+                              class="form-control"
+                               multiple="" 
+                              (change)="onFileChange($event)">
+                      
+                     
+                      <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+                        <hr>
+                      </div> -->
+                    
+                      <div class="col-md-4 form-group">       
+                        <button type="button" class="btn btn-primary"  (click)="addProductMetal()" >Save Metal</button>
+                      </div>
+                     
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <app-productstone></app-productstone>
+              </div>
+              </section>
+              </div>
+
+</div>
